@@ -12,11 +12,6 @@ export default function Header() {
       <Link href="/about">
         <a className={pathname === '/about' ? 'is-active' : ''}>About</a>
       </Link>
-      <Link href="/client-only">
-        <a className={pathname === '/client-only' ? 'is-active' : ''}>
-          Client-Only
-        </a>
-      </Link>
       <style jsx>{`
         header {
           margin-bottom: 25px;
