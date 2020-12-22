@@ -1,68 +1,76 @@
-import { gql, useQuery } from '@apollo/client'
-import ErrorMessage from './ErrorMessage'
+import { gql, useQuery } from "@apollo/client";
+import styled from "styled-components";
+import ErrorMessage from "./ErrorMessage";
 
 export const ALL_EVENTS_QUERY = gql`
-  query{
-    eventMany{
+  query {
+    eventMany {
       _id
       name
       description
       event_start_time
     }
   }
-`
+`;
+
+const List = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* width: 80%; */
+`;
+
+const EventBox = styled.div`
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+`;
+
+const EventImagePlaceholder = styled.div`
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin: 5px;
+  height: 10vh;
+  width: 15vw;
+`;
+
+const EventName = styled.h3`
+  font-weight: bold;
+`;
 
 export default function EventList() {
-  const { loading, error, data } = useQuery(
-    ALL_EVENTS_QUERY
-  )
+  const { loading, error, data } = useQuery(ALL_EVENTS_QUERY);
 
-  if (error) return <ErrorMessage message="Error loading Events." />
-  if (loading) return <div>Loading</div>
-  const { eventMany } = data
-  console.log(eventMany)
+  if (error) return <ErrorMessage message="Error loading Events." />;
+  if (loading) return <div>Loading</div>;
+
+  const { eventMany } = data;
 
   return (
-    <section>
-      <ul>
-        {eventMany.map((event, index) => (
-          <li key={event._id}>
-            <div>
-              <span>{index + 1}. </span>
-              <a>{event.name}</a>
-              <p>{event.description}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <style jsx>{`
-        section {
-          padding-bottom: 20px;
-        }
-        li {
-          display: block;
-          margin-bottom: 10px;
-        }
-        div {
-          align-items: center;
-          display: flex;
-        }
-        a {
-          font-size: 14px;
-          margin-right: 10px;
-          text-decoration: none;
-          padding-bottom: 0;
-          border: 0;
-        }
-        span {
-          font-size: 14px;
-          margin-right: 5px;
-        }
-        ul {
-          margin: 0;
-          padding: 0;
-        }
-      `}</style>
-    </section>
-  )
+    <>
+      <h1>Events</h1>
+      <List>
+        {eventMany.map((event) => {
+          let name = event.name;
+          let date = new Date(event.event_start_time);
+          let description = event.description;
+          return (
+            <EventBox key={event._id}>
+              <EventImagePlaceholder />
+              <div>
+                <p>{date.toDateString()}</p>
+                <h3>{name}</h3>
+                <p>{description}</p>
+              </div>
+            </EventBox>
+          );
+        })}
+      </List>
+    </>
+  );
 }

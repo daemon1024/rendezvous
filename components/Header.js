@@ -1,30 +1,30 @@
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { useRouter } from "next/router";
+import Link from "next/link";
+import styled, { css } from "styled-components";
 
+const A = styled.a`
+  font-size: 14px;
+  margin-right: 15px;
+  text-decoration: none;
+  color: #22bad9;
+  cursor: pointer;
+
+  ${(props) =>
+    props.isActive &&
+    css`
+      text-decoration: underline;
+    `}
+`;
 export default function Header() {
-  const { pathname } = useRouter()
-
+  const { pathname } = useRouter();
   return (
     <header>
       <Link href="/">
-        <a className={pathname === '/' ? 'is-active' : ''}>Home</a>
+        <A isActive={pathname === "/" ? true : false}>Home</A>
       </Link>
       <Link href="/about">
-        <a className={pathname === '/about' ? 'is-active' : ''}>About</a>
+        <A isActive={pathname === "/about" ? true : false}>About</A>
       </Link>
-      <style jsx>{`
-        header {
-          margin-bottom: 25px;
-        }
-        a {
-          font-size: 14px;
-          margin-right: 15px;
-          text-decoration: none;
-        }
-        .is-active {
-          text-decoration: underline;
-        }
-      `}</style>
     </header>
-  )
+  );
 }
