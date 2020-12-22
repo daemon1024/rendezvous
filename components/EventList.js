@@ -27,6 +27,7 @@ const EventBox = styled.div`
   margin: 20px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 5px;
 `;
 
@@ -34,9 +35,9 @@ const EventImagePlaceholder = styled.div`
   border: 2px solid #000000;
   box-sizing: border-box;
   border-radius: 5px;
-  margin: 5px;
+  /* margin: 5px; */
   height: 10vh;
-  width: 15vw;
+  width: 100%;
 `;
 
 const EventName = styled.h3`
