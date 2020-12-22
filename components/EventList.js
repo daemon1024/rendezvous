@@ -8,16 +8,22 @@ export const ALL_EVENTS_QUERY = gql`
       _id
       name
       description
+      status
       event_start_time
     }
   }
+`;
+
+const EventContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const List = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* width: 80%; */
 `;
 
 const EventBox = styled.div`
@@ -27,7 +33,7 @@ const EventBox = styled.div`
   margin: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 192px;
   padding: 5px;
 `;
 
@@ -35,13 +41,12 @@ const EventImagePlaceholder = styled.div`
   border: 2px solid #000000;
   box-sizing: border-box;
   border-radius: 5px;
-  /* margin: 5px; */
   height: 10vh;
   width: 100%;
-`;
-
-const EventName = styled.h3`
-  font-weight: bold;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default function EventList() {
@@ -54,24 +59,50 @@ export default function EventList() {
 
   return (
     <>
-      <h1>Events</h1>
-      <List>
-        {eventMany.map((event) => {
-          let name = event.name;
-          let date = new Date(event.event_start_time);
-          let description = event.description;
-          return (
-            <EventBox key={event._id}>
-              <EventImagePlaceholder />
-              <div>
-                <p>{date.toDateString()}</p>
-                <h3>{name}</h3>
-                <p>{description}</p>
-              </div>
-            </EventBox>
-          );
-        })}
-      </List>
+      <EventContainer>
+        <h1>Upcoming Events</h1>
+        <List>
+          {eventMany.map((event) => {
+            if (event.status == "scheduled") {
+              let name = event.name;
+              let date = new Date(event.event_start_time);
+              let description = event.description;
+              return (
+                <EventBox key={event._id}>
+                  <EventImagePlaceholder>
+                    <p>( ͡ ° ͜ʖ ͡ ° )</p>
+                  </EventImagePlaceholder>
+                  <p>{date.toDateString()}</p>
+                  <h4>{name}</h4>
+                  <p>{description}</p>
+                </EventBox>
+              );
+            }
+          })}
+        </List>
+      </EventContainer>
+      <EventContainer>
+        <h1>Past Events</h1>
+        <List>
+          {eventMany.map((event) => {
+            if (event.status == "finished") {
+              let name = event.name;
+              let date = new Date(event.event_start_time);
+              let description = event.description;
+              return (
+                <EventBox key={event._id}>
+                  <EventImagePlaceholder>
+                    <p>(•ㅅ•)</p>
+                  </EventImagePlaceholder>
+                  <p>{date.toDateString()}</p>
+                  <h4>{name}</h4>
+                  <p>{description}</p>
+                </EventBox>
+              );
+            }
+          })}
+        </List>
+      </EventContainer>
     </>
   );
 }
