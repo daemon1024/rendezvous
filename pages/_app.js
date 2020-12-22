@@ -13,9 +13,9 @@ export default function App({ Component, pageProps }) {
         <title>Rendezvous</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+      <GlobalStyle />
+      <Header />
       <ApolloProvider client={apolloClient}>
-        <GlobalStyle />
-        <Header />
         <Component {...pageProps} />
       </ApolloProvider>
     </>
