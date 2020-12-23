@@ -6,7 +6,7 @@ const A = styled.a`
   font-size: 14px;
   margin-right: 15px;
   text-decoration: none;
-  color: #22bad9;
+  color: ${({ theme }) => theme.tint};
   cursor: pointer;
 
   ${(props) =>

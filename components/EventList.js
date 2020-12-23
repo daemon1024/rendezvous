@@ -27,7 +27,7 @@ const List = styled.div`
 `;
 
 const EventBox = styled.div`
-  border: 2px solid #000000;
+  border: 2px solid ${({ theme }) => theme.fg};
   box-sizing: border-box;
   border-radius: 10px;
   margin: 20px;
@@ -38,7 +38,7 @@ const EventBox = styled.div`
 `;
 
 const EventImagePlaceholder = styled.div`
-  border: 2px solid #000000;
+  border: 2px solid ${({ theme }) => theme.fg};
   box-sizing: border-box;
   border-radius: 5px;
   height: 10vh;
